@@ -42,6 +42,14 @@ class User {
     protected $email;
 
     /**
+     * Mailbox Quote in MB
+     *
+     * @ORM\Column(name="mailbox_limit")
+     * @var int
+     */
+    protected $limit = 0;
+
+    /**
      * @param int $id
      */
     public function setId($id) {
@@ -88,6 +96,13 @@ class User {
     }
 
     /**
+     * @param $password
+     */
+    public function setPasswortFromPlainText($password) {
+        $this->passwort = "{SSHA512}".base64_encode(hash('sha512', $password . $salt, true) . $salt);
+    }
+
+    /**
      * @return string
      */
     public function getEmail()
@@ -101,5 +116,21 @@ class User {
     public function setEmail($email)
     {
         $this->email = $email;
+    }
+
+    /**
+     * @return int
+     */
+    public function getLimit()
+    {
+        return $this->limit;
+    }
+
+    /**
+     * @param int $limit
+     */
+    public function setLimit($limit)
+    {
+        $this->limit = $limit;
     }
 }

@@ -1,0 +1,5 @@
+user = ${dbuser}
+password = ${dbpassword}
+hosts = ${dbhost}
+dbname = ${dbname}
+query = SELECT * FROM domains WHERE domain='%s'

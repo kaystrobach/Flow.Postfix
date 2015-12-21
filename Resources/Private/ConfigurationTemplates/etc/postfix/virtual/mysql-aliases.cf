@@ -1,0 +1,5 @@
+user = ${dbuser}
+password = ${dbpassword}
+hosts = ${dbhost}
+dbname = ${dbname}
+query = SELECT destination FROM aliases WHERE source='%s'

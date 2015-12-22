@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
- * @ORM\Table(name="virtual_aliases")
+ * @ORM\Table(name="mailserver_aliases")
  */
 class Alias {
     /**

@@ -2,4 +2,4 @@ user = ${dbuser}
 password = ${dbpassword}
 hosts = ${dbhost}
 dbname = ${dbname}
-query = SELECT * FROM users WHERE username='%u' AND domain='%d'
+query = SELECT * FROM mailserver_users AS a LEFT JOIN mailserver_domains as b ON a.domain_id = b.id WHERE username='%u' AND b.domain='%d'

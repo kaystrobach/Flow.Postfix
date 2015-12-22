@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
- * @ORM\Table(name="virtual_domains")
+ * @ORM\Table(name="mailserver_domains")
  */
 class Domain {
     /**
@@ -23,7 +23,7 @@ class Domain {
     protected $id;
 
     /**
-     * @ORM\Column(name="name", length=50)
+     * @ORM\Column(name="domain", length=50)
      * @var string
      */
     protected $name;

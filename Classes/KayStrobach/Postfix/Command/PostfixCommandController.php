@@ -60,38 +60,15 @@ class PostfixCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 		$this->outputLine('<b>Configure Mailstorage in Filesystem</b>');
 		$this->dovecotConfigurationService
-			->setValue('/etc/dovecot/conf.d/10-mail.conf', 'mail_home', '/var/vmail/%d/%n')             // nutzernamen aufsplitten
-			->setValue('/etc/dovecot/conf.d/10-mail.conf', 'mail_location', 'maildir:~/mail:LAYOUT=fs') // prüfen am SBS
-			->setValue('/etc/dovecot/conf.d/10-mail.conf', 'mail_uid', 'vmail')
-			->setValue('/etc/dovecot/conf.d/10-mail.conf', 'mail_gid', 'vmail')
-			->setValue('/etc/dovecot/conf.d/10-mail.conf', 'mail_privileged_group', 'vmail')
-		;
+			->setParam('hostname', gethostname())
+			->setParam('dbuser', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.user'))
+			->setParam('dbpassword', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.password'))
+			->setParam('dbhost', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.host'))
+			->setParam('dbname', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.dbname'))
+			->setDirectoryContentFromTemplates('/etc/dovecot/');
 
-		$this->outputLine('<b>Configure MySQL as Backend</b>');
-		$this->dovecotConfigurationService
-			->setValue('/etc/dovecot/dovecot-sql.conf.ext', 'driver', 'mysql')
-			->setValue('/etc/dovecot/dovecot-sql.conf.ext', 'connect', 'host=127.0.0.1 dbname=vmail user=vmail password=vmailpasswort')
-			->setValue('/etc/dovecot/dovecot-sql.conf.ext', 'default_pass_scheme', 'SHA512-CRYPT')
-			->setValue('/etc/dovecot/dovecot-sql.conf.ext', 'password_query', 'SELECT username, domain, password FROM users WHERE username = \'%n\' AND domain = \'%d\'')
-			->setValue('/etc/dovecot/dovecot-sql.conf.ext', 'iterate_query', 'SELECT username, domain FROM users')
-		;
-
-		$this->outputLine('<b>Configure Authentication</b>');
-		$this->dovecotConfigurationService
-			->setValue('/etc/dovecot/conf.d/10-auth.conf', 'disable_plaintext_auth', 'yes')
-			->setValue('/etc/dovecot/conf.d/10-auth.conf', 'auth_mechanisms', 'plain login')
-			->commentLine('/etc/dovecot/conf.d/10-auth.conf', 'include auth-system.conf.ext')
-		;
-
-		$this->outputLine('<b>configure dovecot basics</b>');
-		$this->dovecotConfigurationService
-			->setFileContentFromTemplate('/etc/dovecot/dovecot.conf')
-		;
-
-		$this->outputLine('<b>master configuration</b>');
-		$this->dovecotConfigurationService
-			->setSectionContentFromTemplate('/etc/dovecot/conf.d/10-master.conf', 'service auth')
-		;
+		$this->outputLine('<b>Restart dovecot</b>');
+		$this->shellCommand('service dovecot restart');
 	}
 
 	/**
@@ -115,9 +92,18 @@ class PostfixCommandController extends \TYPO3\Flow\Cli\CommandController {
 			->setFileContentFromTemplate('/etc/postfix/virtual/mysql-domains.cf')
 			->setFileContentFromTemplate('/etc/postfix/virtual/mysql-maps.cf')
 		;
+
+		$this->outputLine('<b>Restart postfix</b>');
+		$this->shellCommand('service postfix reload');
+		$this->shellCommand('service postfix restart');
 	}
 
-	protected function shellCommand($cmd) {
+	public function checkIteratorCommand() {
+		$this->dovecotConfigurationService->setDirectoryContentFromTemplates('/etc/dovecot/');
+	}
+
+	protected function shellCommand($cmd)
+	{
 		$this->outputLine('<b>' . $cmd . '</b>');
 		system($cmd);
 	}

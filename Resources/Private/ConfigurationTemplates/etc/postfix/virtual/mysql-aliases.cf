@@ -2,4 +2,4 @@ user = ${dbuser}
 password = ${dbpassword}
 hosts = ${dbhost}
 dbname = ${dbname}
-query = SELECT destination FROM aliases WHERE source='%s'
+query = SELECT destination FROM mailserver_aliases WHERE source='%s' UNION SELECT CONCAT(username, '@', b.domain) AS destination FROM mailserver_users AS a LEFT JOIN mailserver_domains as b ON a.domain_id = b.id WHERE CONCAT(username, '@', b.domain)='%s'

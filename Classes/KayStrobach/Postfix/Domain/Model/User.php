@@ -11,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @Flow\Entity
- * @ORM\Table(name="virtual_users")
+ * @ORM\Table(name="mailserver_users")
  */
 class User {
     /**
@@ -36,10 +36,10 @@ class User {
     protected $passwort;
 
     /**
-     * @ORM\Column(name="email", length=100)
+     * @ORM\Column(name="username", length=128)
      * @var string
      */
-    protected $email;
+    protected $username;
 
     /**
      * Mailbox Quote in MB

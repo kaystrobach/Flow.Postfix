@@ -51,6 +51,8 @@ class PostfixCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * install dovecot
 	 */
 	public function installDovecotCommand() {
+		$this->checkRoot();
+
 		$this->outputLine('<b>Installing needed packages for dovecot</b>');
 
 		$this->shellCommand('sudo DEBIAN_FRONTEND=noninteractive apt-get -y update');
@@ -75,6 +77,8 @@ class PostfixCommandController extends \TYPO3\Flow\Cli\CommandController {
 	 * install postfix
 	 */
 	public function installPostfixCommand() {
+		$this->checkRoot();
+
 		$this->outputLine('<b>Installing needed packages for postfix</b>');
 		$this->shellCommand('debconf-set-selections <<< "postfix postfix/mailname string ' . gethostname() . '"');
 		$this->shellCommand('debconf-set-selections <<< "postfix postfix/main_mailer_type string \'Internet Site\'""');
@@ -98,14 +102,16 @@ class PostfixCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$this->shellCommand('service postfix restart');
 	}
 
-	public function checkIteratorCommand() {
-		$this->dovecotConfigurationService->setDirectoryContentFromTemplates('/etc/dovecot/');
-	}
-
 	protected function shellCommand($cmd)
 	{
 		$this->outputLine('<b>' . $cmd . '</b>');
 		system($cmd);
 	}
 
+	protected function checkRoot() {
+		if(posix_getuid() !== 0) {
+			$this->outputLine('<b>Must be run as root, e.g. with sudo ...</b>');
+			$this->sendAndExit(99);
+		}
+	}
 }

@@ -20,13 +20,13 @@ class UserRepository extends Repository {
      * @param Domain $domain
      * @return \TYPO3\Flow\Persistence\QueryResultInterface
      */
-	public function findByEmailAndDomain($email, Domain $domain) {
+	public function findByUsernameAndDomain($email, Domain $domain) {
         $query = $this->createQuery();
         $query->matching(
             $query->logicalAnd(
                 array(
                     $query->equals(
-                        'email',
+                        'username',
                         $email
                     ),
                     $query->equals(

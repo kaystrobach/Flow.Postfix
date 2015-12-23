@@ -64,7 +64,7 @@ class User {
     }
 
     /**
-     * @return mixed
+     * @return Domain
      */
     public function getDomain()
     {
@@ -72,7 +72,7 @@ class User {
     }
 
     /**
-     * @param mixed $domain
+     * @param Domain $domain
      */
     public function setDomain($domain)
     {
@@ -105,17 +105,17 @@ class User {
     /**
      * @return string
      */
-    public function getEmail()
+    public function getUsername()
     {
-        return $this->email;
+        return $this->username;
     }
 
     /**
-     * @param string $email
+     * @param string $username
      */
-    public function setEmail($email)
+    public function setUsername($username)
     {
-        $this->email = $email;
+        $this->username = $username;
     }
 
     /**

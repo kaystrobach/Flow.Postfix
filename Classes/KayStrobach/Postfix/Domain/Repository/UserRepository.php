@@ -39,4 +39,33 @@ class UserRepository extends Repository {
         return $query->execute();
     }
 
+    /**
+     * @param Domain $domain
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByDomain(Domain $domain) {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals(
+                'domain',
+                $domain
+            )
+        );
+        return $query->execute();
+    }
+
+    /**
+     * @param string $domain
+     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     */
+    public function findByDomainString($domain) {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->equals(
+                'domain.domain',
+                $domain
+            )
+        );
+        return $query->execute();
+    }
 }

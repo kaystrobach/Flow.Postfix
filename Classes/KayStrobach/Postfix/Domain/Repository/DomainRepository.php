@@ -19,11 +19,11 @@ class DomainRepository extends Repository {
      * @param $name
      * @return Domain
      */
-    public function findOneByName($name) {
+    public function findOneByDomain($name) {
         $query = $this->createQuery();
         $query->matching(
             $query->equals(
-                'name',
+                'domain',
                 $name
             )
         );

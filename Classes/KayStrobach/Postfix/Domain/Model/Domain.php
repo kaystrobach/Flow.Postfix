@@ -26,7 +26,7 @@ class Domain {
      * @ORM\Column(name="domain", length=50)
      * @var string
      */
-    protected $name;
+    protected $domain;
 
     /**
      * @param int $id
@@ -43,16 +43,16 @@ class Domain {
     }
 
     /**
-     * @param string $name
+     * @param string $domain
      */
-    public function setName($name) {
-        $this->name= $name;
+    public function setDomain($domain) {
+        $this->domain= $domain;
     }
 
     /**
      * @return string
      */
-    public function getName() {
-        return $this->name;
+    public function getDomain() {
+        return $this->domain;
     }
 }

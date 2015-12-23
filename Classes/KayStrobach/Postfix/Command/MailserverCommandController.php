@@ -105,7 +105,7 @@ class MailserverCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 		$this->shellCommand('mkdir -p /var/mail');
 		$this->shellCommand('groupadd -g 5000 vmail');
-		$this->shellCommand('useradd -m -d /var/mail -s /bin/false -u 5000 -g vmail vmail');
+		$this->shellCommand('useradd -m -d /var/mail -s /bin/false -g vmail vmail');
 		$this->shellCommand('chown -R vmail:vmail /var/mail');
 
 		$this->outputLine('<b>Restart dovecot</b>');

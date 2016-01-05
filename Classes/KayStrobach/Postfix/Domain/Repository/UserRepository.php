@@ -7,6 +7,7 @@ namespace KayStrobach\Postfix\Domain\Repository;
  *                                                                        */
 
 use KayStrobach\Postfix\Domain\Model\Domain;
+use KayStrobach\Postfix\Domain\Model\User;
 use TYPO3\Flow\Annotations as Flow;
 use TYPO3\Flow\Persistence\Repository;
 
@@ -37,6 +38,30 @@ class UserRepository extends Repository {
             )
         );
         return $query->execute();
+    }
+
+    /**
+     * @param string $username
+     * @param string $domain
+     * @return User
+     */
+    public function findOneByUsernameAndDomainString($username, $domain) {
+        $query = $this->createQuery();
+        $query->matching(
+            $query->logicalAnd(
+                array(
+                    $query->equals(
+                        'username',
+                        $username
+                    ),
+                    $query->equals(
+                        'domain.domain',
+                        $domain
+                    )
+                )
+            )
+        );
+        return $query->execute()->getFirst();
     }
 
     /**

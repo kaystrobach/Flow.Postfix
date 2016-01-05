@@ -99,7 +99,7 @@ class User {
      * @param $password
      */
     public function setPasswortFromPlainText($password) {
-        $this->passwort = "{SSHA512}".base64_encode(hash('sha512', $password . $salt, true) . $salt);
+        $this->passwort = '{SHA512}' . base64_encode(hash('sha512', $password, TRUE));
     }
 
     /**

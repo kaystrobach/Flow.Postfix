@@ -14,7 +14,7 @@ use KayStrobach\Postfix\Service\Configuration\DovecotConfigurationService;
 use KayStrobach\Postfix\Service\Configuration\PostfixConfigurationService;
 use Neos\Flow\Annotations as Flow;
 use Neos\Flow\Mvc\Exception\StopActionException;
-use Neos\Flow\Utility\Files;
+use Neos\Utility\Files;
 
 /**
  * @Flow\Scope("singleton")

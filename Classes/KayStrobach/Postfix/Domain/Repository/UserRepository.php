@@ -8,8 +8,8 @@ namespace KayStrobach\Postfix\Domain\Repository;
 
 use KayStrobach\Postfix\Domain\Model\Domain;
 use KayStrobach\Postfix\Domain\Model\User;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
 
 /**
  * @Flow\Scope("singleton")
@@ -19,7 +19,7 @@ class UserRepository extends Repository {
     /**
      * @param string $email
      * @param Domain $domain
-     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     * @return \Neos\Flow\Persistence\QueryResultInterface
      */
 	public function findByUsernameAndDomain($email, Domain $domain) {
         $query = $this->createQuery();
@@ -66,7 +66,7 @@ class UserRepository extends Repository {
 
     /**
      * @param Domain $domain
-     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     * @return \Neos\Flow\Persistence\QueryResultInterface
      */
     public function findByDomain(Domain $domain) {
         $query = $this->createQuery();
@@ -81,7 +81,7 @@ class UserRepository extends Repository {
 
     /**
      * @param string $domain
-     * @return \TYPO3\Flow\Persistence\QueryResultInterface
+     * @return \Neos\Flow\Persistence\QueryResultInterface
      */
     public function findByDomainString($domain) {
         $query = $this->createQuery();

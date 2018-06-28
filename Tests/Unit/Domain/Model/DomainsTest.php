@@ -9,7 +9,7 @@ namespace KayStrobach\Postfix\Tests\Unit\Domain\Model;
 /**
  * Testcase for Domains
  */
-class DomainsTest extends \TYPO3\Flow\Tests\UnitTestCase {
+class DomainsTest extends \Neos\Flow\Tests\UnitTestCase {
 
 	/**
 	 * @test

@@ -3,7 +3,7 @@
 namespace KayStrobach\Postfix\Service\Configuration;
 
 
-use TYPO3\Flow\Utility\Files;
+use Neos\Flow\Utility\Files;
 
 class PostfixConfigurationService
 {

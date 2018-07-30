@@ -7,8 +7,8 @@ namespace KayStrobach\Postfix\Domain\Repository;
  *                                                                        */
 
 use KayStrobach\Postfix\Domain\Model\Domain;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Persistence\Repository;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Persistence\Repository;
 
 /**
  * @Flow\Scope("singleton")

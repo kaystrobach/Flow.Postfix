@@ -12,14 +12,14 @@ use KayStrobach\Postfix\Domain\Repository\DomainRepository;
 use KayStrobach\Postfix\Domain\Repository\UserRepository;
 use KayStrobach\Postfix\Service\Configuration\DovecotConfigurationService;
 use KayStrobach\Postfix\Service\Configuration\PostfixConfigurationService;
-use TYPO3\Flow\Annotations as Flow;
-use TYPO3\Flow\Mvc\Exception\StopActionException;
-use TYPO3\Flow\Utility\Files;
+use Neos\Flow\Annotations as Flow;
+use Neos\Flow\Mvc\Exception\StopActionException;
+use Neos\Utility\Files;
 
 /**
  * @Flow\Scope("singleton")
  */
-class MailserverCommandController extends \TYPO3\Flow\Cli\CommandController {
+class MailserverCommandController extends \Neos\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject()
@@ -35,7 +35,7 @@ class MailserverCommandController extends \TYPO3\Flow\Cli\CommandController {
 
 	/**
 	 * @Flow\Inject()
-	 * @var \TYPO3\Flow\Configuration\ConfigurationManager
+	 * @var \Neos\Flow\Configuration\ConfigurationManager
 	 */
 	protected $settings;
 
@@ -97,10 +97,10 @@ class MailserverCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$this->outputLine('<b>Configure Mailstorage in Filesystem</b>');
 		$this->dovecotConfigurationService
 			->setParam('hostname', gethostname())
-			->setParam('dbuser', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.user'))
-			->setParam('dbpassword', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.password'))
-			->setParam('dbhost', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.host'))
-			->setParam('dbname', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.dbname'))
+			->setParam('dbuser', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.user'))
+			->setParam('dbpassword', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.password'))
+			->setParam('dbhost', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.host'))
+			->setParam('dbname', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.dbname'))
 			->setDirectoryContentFromTemplates('/etc/dovecot/');
 
 		$this->shellCommand('mkdir -p /var/mail');
@@ -127,10 +127,10 @@ class MailserverCommandController extends \TYPO3\Flow\Cli\CommandController {
 		$this->outputLine('<b>Configuring Postfix</b>');
 		$this->postfixConfigurationService
 			->setParam('hostname', gethostname())
-			->setParam('dbuser', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.user'))
-			->setParam('dbpassword', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.password'))
-			->setParam('dbhost', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.host'))
-			->setParam('dbname', $this->settings->getConfiguration('Settings', 'TYPO3.Flow.persistence.backendOptions.dbname'))
+			->setParam('dbuser', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.user'))
+			->setParam('dbpassword', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.password'))
+			->setParam('dbhost', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.host'))
+			->setParam('dbname', $this->settings->getConfiguration('Settings', 'Neos.Flow.persistence.backendOptions.dbname'))
 			->setFileContentFromTemplate('/etc/postfix/main.cf')
 			->setFileContentFromTemplate('/etc/postfix/virtual/mysql-aliases.cf')
 			->setFileContentFromTemplate('/etc/postfix/virtual/mysql-domains.cf')

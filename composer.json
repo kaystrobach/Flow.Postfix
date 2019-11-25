@@ -1,6 +1,7 @@
 {
     "name": "kaystrobach/postfix",
     "type": "typo3-flow-package",
+    "abandoned": true,
     "require": {
         "neos/flow": "~4.0"
     },
